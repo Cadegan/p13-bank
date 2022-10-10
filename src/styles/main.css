@@ -22,6 +22,7 @@ body {
   background-color: #12002b;
 }
 
+/* Header */
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
@@ -56,6 +57,9 @@ body {
   text-decoration: none;
   margin-right: 0.5rem;
 }
+.main-nav-item .fa {
+  margin-right: 0.3rem;
+}
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -66,6 +70,18 @@ body {
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid #ccc;
+  padding: 2rem 0 1.5rem;
+}
+.footer-text {
+  margin: 0;
+  padding: 0;
 }
 
 /* Home page */

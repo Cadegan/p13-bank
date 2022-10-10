@@ -1,3 +1,5 @@
+/* Header */
+
 .sr-only {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -33,6 +35,10 @@
     &-item {
         text-decoration: none;
         margin-right: 0.5rem;
+
+        .fa {
+            margin-right: 0.3rem;
+        }
     }
 
     &-item:hover {
