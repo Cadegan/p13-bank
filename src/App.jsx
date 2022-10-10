@@ -1,21 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./Components/header";
+import Header from "./components/Header/Header";
 
 // import logo from './logo.svg';
 // import './App.css';
 
 function App() {
   return (
-   <Router>
-    <Header />
+    <Router>
+      <Header />
       <Routes>
         {/* <Route exact path="/" element={<Home />}></Route> */}
         {/* <Route exact path="/login" element={<Login />}></Route>
         <Route exact path="/user/:id" element={<DashBoard />}></Route>
         <Route exact path="*" element={<Error />}></Route> */}
-    </Routes>
-   </Router>
+      </Routes>
+    </Router>
   );
 }
 
