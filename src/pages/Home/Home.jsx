@@ -1,3 +1,7 @@
+import iconChat from "../../assets/icon-chat.png";
+import iconMoney from "../../assets/icon-money.png";
+import iconSecurity from "../../assets/icon-security.png";
+
 export default function Home() {
   return (
     <main>
@@ -13,11 +17,7 @@ export default function Home() {
       <section className="features">
         <h2 className="sr-only">Features</h2>
         <div className="feature-item">
-          <img
-            src="./img/icon-chat.png"
-            alt="Chat Icon"
-            className="feature-icon"
-          />
+          <img src={iconChat} alt="Chat Icon" className="feature-icon" />
           <h3 className="feature-item-title">You are our #1 priority</h3>
           <p>
             Need to talk to a representative? You can get in touch through our
@@ -25,11 +25,7 @@ export default function Home() {
           </p>
         </div>
         <div className="feature-item">
-          <img
-            src="./img/icon-money.png"
-            alt="Chat Icon"
-            className="feature-icon"
-          />
+          <img src={iconMoney} alt="Chat Icon" className="feature-icon" />
           <h3 className="feature-item-title">
             More savings means higher rates
           </h3>
@@ -38,11 +34,7 @@ export default function Home() {
           </p>
         </div>
         <div className="feature-item">
-          <img
-            src="./img/icon-security.png"
-            alt="Chat Icon"
-            className="feature-icon"
-          />
+          <img src={iconSecurity} alt="Chat Icon" className="feature-icon" />
           <h3 className="feature-item-title">Security you can trust</h3>
           <p>
             We use top of the line encryption to make sure your data and money
