@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
+import Profil from "./pages/Profil/Profil";
 
 // import logo from './logo.svg';
 // import './App.css';
@@ -15,8 +16,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/login" element={<SignIn />}></Route>
-        {/* <Route exact path="/user/:id" element={<DashBoard />}></Route>
-        <Route exact path="*" element={<Error />}></Route> */}
+        <Route exact path="/profil/" element={<Profil />}></Route>
+        {/* <Route exact path="*" element={<Error />}></Route> */}
       </Routes>
       <Footer />
     </Router>
