@@ -14,7 +14,7 @@ export default function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        <NavLink className="main-nav-item" to="/login">
+        <NavLink className="main-nav-item" to="/user/login">
           <i className="fa fa-user-circle"></i>
           Sign In
         </NavLink>
