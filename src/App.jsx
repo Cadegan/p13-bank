@@ -13,8 +13,8 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
-        <Route exact path="/user/login" element={<SignIn />}></Route>
-        <Route exact path="/user/profil" element={<Profil />}></Route>
+        <Route exact path="/login" element={<SignIn />}></Route>
+        <Route exact path="/profile" element={<Profil />}></Route>
         <Route exact path="*" element={<Error />}></Route>
       </Routes>
       <Footer />
