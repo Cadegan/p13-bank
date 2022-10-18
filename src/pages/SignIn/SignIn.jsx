@@ -1,10 +1,14 @@
 export default function SignIn() {
+  async function authenticate(event) {
+    event.preventDefault();
+  }
+
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form>
+        <form onSubmit={authenticate}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" />
