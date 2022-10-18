@@ -1,4 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../slices/userActions";
+import { useNavigate } from "react-router-dom";
+
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const { loading, userToken, status } = useSelector(
+    (state) => state.authorization
+  );
+
   async function authenticate(event) {
     event.preventDefault();
   }
