@@ -1,29 +1,57 @@
-import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
+// v3
 export const userLogin = createAsyncThunk(
   "authorization/login",
-  async (loginInformations) => {
-    const { email, password } = loginInformations;
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios({
+      const config = {
         headers: {
           "Content-Type": "application/json",
         },
-        method: "POST",
-        url: "http://localhost:3001/api/v1/user/login",
-        data: {
-          email: email,
-          password: password,
-        },
-      });
+      };
+      const { response } = await axios.post(
+        "http://localhost:3001/api/v1/user/login",
+        { email, password },
+        config
+      );
       localStorage.setItem("userToken", response.data.body.token);
       return response.data;
     } catch (error) {
-      return isRejectedWithValue(400);
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
     }
   }
 );
+
+// // v2
+// export const userLogin = createAsyncThunk(
+//   "authorization/login",
+//   async (loginInformations) => {
+//     const { email, password } = loginInformations;
+//     try {
+//       const response = await axios({
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         method: "POST",
+//         url: "http://localhost:3001/api/v1/user/login",
+//         data: {
+//           email: email,
+//           password: password,
+//         },
+//       });
+//       localStorage.setItem("userToken", response.data.body.token);
+//       return response.data;
+//     } catch (error) {
+//       return isRejectedWithValue(400);
+//     }
+//   }
+// );
 
 // import { createSlice } from "@reduxjs/toolkit";
 
