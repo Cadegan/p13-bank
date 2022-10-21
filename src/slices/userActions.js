@@ -28,6 +28,32 @@ export const userLogin = createAsyncThunk(
   }
 );
 
+export const getUserDetails = createAsyncThunk(
+  "authorization/fetchUserData",
+  async (arg, { getState, rejectWithValue }) => {
+    try {
+      const { user } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get(
+        "http://localhost:3001/api/v1//user/profile",
+        config
+      );
+      return { data };
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
 // // v2
 // export const userLogin = createAsyncThunk(
 //   "authorization/login",
