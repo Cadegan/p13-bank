@@ -11,13 +11,13 @@ export const userLogin = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { response } = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:3001/api/v1/user/login",
         { email, password },
         config
       );
-      localStorage.setItem("userToken", response.data.body.token);
-      return response.data;
+      localStorage.setItem("userToken", data.userToken);
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -36,14 +36,14 @@ export const getUserDetails = createAsyncThunk(
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.userToken}`,
         },
       };
       const { data } = await axios.get(
         "http://localhost:3001/api/v1//user/profile",
         config
       );
-      return { data };
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
