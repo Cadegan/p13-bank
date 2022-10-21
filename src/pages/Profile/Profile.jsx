@@ -1,4 +1,4 @@
-export default function Profil() {
+export default function Profile() {
   return (
     <main className="main bg-dark">
       <div className="header">
