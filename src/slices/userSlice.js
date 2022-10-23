@@ -45,7 +45,9 @@ const userSlice = createSlice({
     },
     [getUserDetails.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.userData = payload;
+      // state.userData = payload;
+      state.userData = payload.userData;
+      state.token = payload.userToken;
     },
     [getUserDetails.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -55,3 +57,22 @@ const userSlice = createSlice({
 
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;
+
+//     //get user details
+//     [getUserDetails.pending]: (state) => {
+//       state.loading = true;
+//     },
+//     [getUserDetails.fulfilled]: (state, { payload }) => {
+//       state.loading = false;
+//       // state.userData = payload;
+//       state.userData = payload.userData;
+//       state.token = payload.userToken;
+//     },
+//     [getUserDetails.rejected]: (state, { payload }) => {
+//       state.loading = false;
+//     },
+//   },
+// });
+
+// export const { logout } = userSlice.actions;
+// export default userSlice.reducer;
