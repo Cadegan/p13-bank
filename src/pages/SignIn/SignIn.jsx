@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../slices/userActions";
 import { useEffect } from "react";
-import Error from "../../components/Error/loginError";
+import ErrorMessage from "../../components/Error/loginError";
 
 export default function SignIn() {
   const { loading, userData, error } = useSelector(
@@ -80,7 +80,7 @@ export default function SignIn() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {error && <Error>Invalid email or password!</Error>}
+          {error && <ErrorMessage>Invalid email or password!</ErrorMessage>}
           <button className="sign-in-button" type="submit" disabled={loading}>
             Sign In
           </button>

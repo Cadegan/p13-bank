@@ -1,5 +1,5 @@
-const Error = ({ children }) => {
-  return <div className="invalidEmailOrPasswordMessage">{children}</div>;
+const ErrorMessage = ({ children }) => {
+  return <div className="ErrorMessage">{children}</div>;
 };
 
-export default Error;
+export default ErrorMessage;
