@@ -6,9 +6,7 @@ import { useEffect } from "react";
 import ErrorMessage from "../../components/Error/loginError";
 
 export default function SignIn() {
-  const { loading, userData, error } = useSelector(
-    (state) => state.authorization
-  );
+  const { loading, userData, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();

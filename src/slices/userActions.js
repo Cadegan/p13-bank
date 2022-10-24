@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // v3
 export const userLogin = createAsyncThunk(
-  "authorization/login",
+  "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const config = {
@@ -29,7 +29,7 @@ export const userLogin = createAsyncThunk(
 );
 
 export const getUserDetails = createAsyncThunk(
-  "authorization/fetchUserData",
+  "auth/fetchUserData",
   async (arg, { getState, rejectWithValue }) => {
     try {
       const { user } = getState();
@@ -57,7 +57,7 @@ export const getUserDetails = createAsyncThunk(
 
 // // v2
 // export const userLogin = createAsyncThunk(
-//   "authorization/login",
+//   "auth/login",
 //   async (loginInformations) => {
 //     const { email, password } = loginInformations;
 //     try {

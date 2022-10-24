@@ -7,7 +7,7 @@ import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
 export default function Header() {
-  const { userToken, userData } = useSelector((state) => state.authorization);
+  const { userToken, userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
