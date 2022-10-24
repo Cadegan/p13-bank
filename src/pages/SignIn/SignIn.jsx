@@ -22,33 +22,12 @@ export default function SignIn() {
     dispatch(userLogin(data));
   };
 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // if (userToken) {
-  //   navigate("/profile");
-  // }
-  // // useEffect(() => {
-  // //   if (userData) {
-  // //     navigate("/profile");
-  // //     window.location.reload();
-  // //   }
-  // // }, [navigate, userData]);
-
-  // function submiForm(e) {
-  //   // const email = document.querySelector("#email");
-  //   // const password = document.querySelector("#password");
-
-  //   e.preventDefault();
-
-  //   const loginInformations = {
-  //     email: email,
-  //     password: password,
-  //   };
-  //   dispatch(userLogin(loginInformations));
-  // }
+  function handleRemember(event) {
+    event.target.checked
+      ? localStorage.setItem("rememberMe", true)
+      : localStorage.setItem("rememberMe", false);
+    console.log("Remember me : " + localStorage.getItem("rememberMe"));
+  }
 
   return (
     <main className="main bg-dark">
@@ -73,9 +52,16 @@ export default function SignIn() {
               {...register("password")}
               required
             />
+            Password: `password123`
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              onChange={(e) => {
+                handleRemember(e);
+              }}
+            />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {error && <ErrorMessage>Invalid email or password!</ErrorMessage>}

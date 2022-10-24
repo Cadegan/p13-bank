@@ -7,14 +7,14 @@ import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
 export default function Header() {
-  const { userToken, userData } = useSelector((state) => state.auth);
+  const { token, userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userToken) {
+    if (token) {
       dispatch(getUserDetails());
     }
-  }, [userToken, dispatch]);
+  }, [token, dispatch]);
 
   return (
     <nav className="main-nav">

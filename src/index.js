@@ -2,9 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/main.css";
 import App from "./App";
-import { Provider } from "react-redux";
 import store from "./app/store";
+import { Provider } from "react-redux";
+import { getToken } from "./utils/functions";
+import { getUserDetails } from "./slices/userActions";
 import reportWebVitals from "./reportWebVitals";
+
+if (getToken()) {
+  store.dispatch(getUserDetails());
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

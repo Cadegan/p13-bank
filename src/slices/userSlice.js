@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserDetails, userLogin } from "./userActions";
 
-const userToken = localStorage.getItem("token")
+const token = localStorage.getItem("token")
   ? localStorage.getItem("token")
   : sessionStorage.getItem("token");
 
 const initialState = {
-  userToken,
+  token,
   loading: false,
   userData: null,
   status: null,
@@ -20,7 +20,7 @@ const userSlice = createSlice({
       localStorage.removeItem("token"); // delete token from storage
       state.loading = false;
       state.userData = null;
-      state.userToken = null;
+      state.token = null;
       state.error = null;
     },
   },
@@ -33,7 +33,7 @@ const userSlice = createSlice({
     [userLogin.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.userData = payload;
-      state.userToken = payload.userToken;
+      state.token = payload.token;
     },
     [userLogin.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -47,7 +47,7 @@ const userSlice = createSlice({
       state.loading = false;
       // state.userData = payload;
       state.userData = payload.userData;
-      state.token = payload.userToken;
+      state.token = payload.token;
     },
     [getUserDetails.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -66,7 +66,7 @@ export default userSlice.reducer;
 //       state.loading = false;
 //       // state.userData = payload;
 //       state.userData = payload.userData;
-//       state.token = payload.userToken;
+//       state.token = payload.token;
 //     },
 //     [getUserDetails.rejected]: (state, { payload }) => {
 //       state.loading = false;

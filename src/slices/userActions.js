@@ -16,7 +16,7 @@ export const userLogin = createAsyncThunk(
         { email, password },
         config
       );
-      localStorage.setItem("userToken", data.userToken);
+      localStorage.setItem("token", data.token);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -36,7 +36,7 @@ export const getUserDetails = createAsyncThunk(
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.userToken}`,
+          Authorization: `Bearer ${user.token}`,
         },
       };
       const { data } = await axios.get(
@@ -72,7 +72,7 @@ export const getUserDetails = createAsyncThunk(
 //           password: password,
 //         },
 //       });
-//       localStorage.setItem("userToken", response.data.body.token);
+//       localStorage.setItem("token", response.data.body.token);
 //       return response.data;
 //     } catch (error) {
 //       return isRejectedWithValue(400);
