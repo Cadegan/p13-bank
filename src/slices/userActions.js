@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getToken } from "../utils/functions";
 
 // v3
 export const userLogin = createAsyncThunk(
@@ -11,13 +12,13 @@ export const userLogin = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const response = await axios.post(
         "http://localhost:3001/api/v1/user/login",
         { email, password },
         config
       );
-      localStorage.setItem("token", data.token);
-      return data;
+      localStorage.setItem("token", response.data.body.token);
+      return response.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -29,22 +30,22 @@ export const userLogin = createAsyncThunk(
 );
 
 export const getUserDetails = createAsyncThunk(
-  "auth/fetchUserData",
+  "auth/getUserDetails",
   async (arg, { getState, rejectWithValue }) => {
     try {
-      const { user } = getState();
+      // const { user } = getState();
+      const accessToken = getToken();
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       };
-      const { data } = await axios.get(
-        "http://localhost:3001/api/v1//user/profile",
+      const { response } = await axios.get(
+        "http://localhost:3001/api/v1/user/profile",
         config
       );
-      // console.log(data);
-      return data;
+      return { ...response.data, accessToken };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

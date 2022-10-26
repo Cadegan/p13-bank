@@ -7,7 +7,7 @@ import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
 export default function Header() {
-  const { token, userData } = useSelector((state) => state.auth);
+  const { userData, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function Header() {
             </NavLink>
             <Link
               className="main-nav-item"
-              to="/login"
+              to="/"
               onClick={() => dispatch(logout())}
             >
               <i className="fa fa-sign-out"></i>
