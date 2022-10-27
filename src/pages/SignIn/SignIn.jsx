@@ -16,7 +16,7 @@ export default function SignIn() {
       navigate("/profile");
     }
   }, [navigate, userData]);
-  console.log(userData);
+  // console.log(userData);
 
   const submiForm = (data) => {
     dispatch(userLogin(data));

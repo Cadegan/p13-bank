@@ -45,7 +45,7 @@ export const getUserDetails = createAsyncThunk(
         "http://localhost:3001/api/v1/user/profile",
         config
       );
-      return { ...response.data, accessToken };
+      return { ...response.data.body, accessToken };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

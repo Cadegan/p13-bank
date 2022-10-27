@@ -59,22 +59,3 @@ const userSlice = createSlice({
 
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;
-
-//     //get user details
-//     [getUserDetails.pending]: (state) => {
-//       state.loading = true;
-//     },
-//     [getUserDetails.fulfilled]: (state, { payload }) => {
-//       state.loading = false;
-//       // state.userData = payload;
-//       state.userData = payload.userData;
-//       state.token = payload.token;
-//     },
-//     [getUserDetails.rejected]: (state, { payload }) => {
-//       state.loading = false;
-//     },
-//   },
-// });
-
-// export const { logout } = userSlice.actions;
-// export default userSlice.reducer;
