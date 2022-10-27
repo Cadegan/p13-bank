@@ -1,20 +1,20 @@
 // import React from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "../../slices/userActions";
-import { logout } from "../../slices/userSlice";
+// import { getUserDetails } from "../../slices/userActions";
+import { removeToken } from "../../slices/userSlice";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
 export default function Header() {
-  const { userData, token } = useSelector((state) => state.auth);
+  const { token, userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (token) {
-      dispatch(getUserDetails());
-    }
-  }, [token, dispatch]);
+  // useEffect(() => {
+  //   if (token) {
+  //     dispatch(getUserDetails());
+  //   }
+  // }, [token, dispatch]);
 
   return (
     <nav className="main-nav">
@@ -27,7 +27,7 @@ export default function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {userData ? (
+        {token ? (
           <>
             <NavLink className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>
@@ -36,14 +36,18 @@ export default function Header() {
             <Link
               className="main-nav-item"
               to="/"
-              onClick={() => dispatch(logout())}
+              onClick={() => dispatch(removeToken())}
             >
               <i className="fa fa-sign-out"></i>
               Sign Out
             </Link>
           </>
         ) : (
-          <NavLink className="main-nav-item" to="/login">
+          <NavLink
+            className="main-nav-item"
+            to="/login"
+            onClick={() => dispatch(removeToken())}
+          >
             <i className="fa fa-user-circle"></i>
             Sign In
           </NavLink>

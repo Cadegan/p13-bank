@@ -1,0 +1,17 @@
+.unauthorized {
+    display: flex;
+    flex: 1 0.4;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    color: crimson;
+    justify-content: space-evenly;
+
+    img {
+        max-width: 400px;
+    }
+
+    // span {
+ //     color: black;
+ // }
+}

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserDetails, userLogin } from "./userActions";
 
-const token = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : sessionStorage.getItem("token");
+// const token = localStorage.getItem("token")
+//   ? localStorage.getItem("token")
+//   : sessionStorage.getItem("token");
 
 const initialState = {
-  token,
+  token: null,
   loading: false,
   userData: null,
   status: null,
@@ -16,7 +16,7 @@ const userSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
+    removeToken: (state) => {
       localStorage.removeItem("token"); // delete token from storage
       // localStorage.clear();
       localStorage.setItem("rememberMe", false);
@@ -28,34 +28,38 @@ const userSlice = createSlice({
   },
   extraReducers: {
     // login user
-    [userLogin.pending]: (state) => {
+    [userLogin.pending]: (state, action) => {
       state.loading = true;
       state.error = null;
     },
-    [userLogin.fulfilled]: (state, { payload }) => {
+    [userLogin.fulfilled]: (state, action) => {
+      const { body, status } = action.payload;
       state.loading = false;
-      state.userData = payload;
-      state.token = payload.token;
+      state.status = action.payload ? status : 400;
+      state.token = body.token;
     },
     [userLogin.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
     //get user details
-    [getUserDetails.pending]: (state) => {
+    [getUserDetails.pending]: (state, action) => {
       state.loading = true;
     },
-    [getUserDetails.fulfilled]: (state, { payload }) => {
+    [getUserDetails.fulfilled]: (state, action) => {
+      const { accessToken, body } = action.payload;
       state.loading = false;
       // state.userData = payload;
-      state.userData = payload.userData;
-      state.token = payload.token;
+      state.userData = body;
+      state.token = accessToken;
     },
-    [getUserDetails.rejected]: (state, { payload }) => {
+    [getUserDetails.rejected]: (state, action) => {
       state.loading = false;
+      state.userData = {};
+      state.token = null;
     },
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { removeToken } = userSlice.actions;
 export default userSlice.reducer;

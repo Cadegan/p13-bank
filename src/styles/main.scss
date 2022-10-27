@@ -5,4 +5,5 @@
 @import "../pages/SignIn/signin";
 @import "../pages/Profile/profile";
 @import "../pages/Error/error";
-@import "../components/Error/loginError"
+@import "../components/Error/loginError";
+@import "../routing/protectedRoute"

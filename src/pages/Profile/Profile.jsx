@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails } from "../../slices/userActions";
 import Account from "../../components/Account/account";
-import amountFormat from "../../components/AmountFormat/amountFormat";
+import amountFormat from "../../utils/amountFormat";
 
 export default function Profile() {
   const userBankAmount = data.user;
@@ -21,7 +21,7 @@ export default function Profile() {
         <h1>
           Welcome back
           <br />
-          <span id="firstName">{userData.firstName}</span>
+          <span id="firstName">{userData.firstName}</span>{" "}
           <span id="lastName">{userData.lastName}</span>
         </h1>
         <button className="edit-button">Edit Name</button>

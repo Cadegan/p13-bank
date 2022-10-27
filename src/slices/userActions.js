@@ -1,138 +1,131 @@
 import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getToken } from "../utils/functions";
+import { createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { getToken, setToken } from "../utils/functions";
 
-// v3
-export const userLogin = createAsyncThunk(
-  "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/user/login",
-        { email, password },
-        config
-      );
-      localStorage.setItem("token", response.data.body.token);
-      return response.data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
+// v4
+export const userLogin = createAsyncThunk("auth/login", async (credentials) => {
+  const { email, password } = credentials;
+  try {
+    const response = await axios({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      url: "http://localhost:3001/api/v1/user/login",
+      data: {
+        email: email,
+        password: password,
+      },
+    });
+    setToken(response.data.body.token);
+    return response.data;
+  } catch (err) {
+    // removeToken();
+    return isRejectedWithValue(400);
   }
-);
+});
 
 export const getUserDetails = createAsyncThunk(
-  "auth/getUserDetails",
-  async (arg, { getState, rejectWithValue }) => {
+  "auth/fetchUserData",
+  async () => {
     try {
-      // const { user } = getState();
       const accessToken = getToken();
-
-      const config = {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3001/api/v1/user/profile",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-      };
-      const { response } = await axios.get(
-        "http://localhost:3001/api/v1/user/profile",
-        config
-      );
-      return { ...response.data.body, accessToken };
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+      });
+      return { ...response.data, accessToken };
+    } catch (err) {
+      // removeToken();
+      return isRejectedWithValue(400);
     }
   }
 );
 
-// // v2
+export const updateUserData = createAsyncThunk(
+  "auth/updateUserData",
+  async (identity) => {
+    const { firstName, lastName } = identity;
+    try {
+      const accessToken = getToken();
+      const response = await axios({
+        method: "put",
+        url: "http://localhost:3001/api/v1/user/profile",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+        },
+      });
+      return { ...response.data };
+    } catch (err) {
+      // removeToken();
+      return isRejectedWithValue(400);
+    }
+  }
+);
+
+// export const signOut = createAsyncThunk("authorization/signOut", async () => {
+//   removeToken();
+// });
+
+// // v3
 // export const userLogin = createAsyncThunk(
 //   "auth/login",
-//   async (loginInformations) => {
-//     const { email, password } = loginInformations;
+//   async ({ email, password }, { rejectWithValue }) => {
 //     try {
-//       const response = await axios({
+//       const config = {
 //         headers: {
 //           "Content-Type": "application/json",
 //         },
-//         method: "POST",
-//         url: "http://localhost:3001/api/v1/user/login",
-//         data: {
-//           email: email,
-//           password: password,
-//         },
-//       });
-//       localStorage.setItem("token", response.data.body.token);
+//       };
+//       const response = await axios.post(
+//         "http://localhost:3001/api/v1/user/login",
+//         { email, password },
+//         config
+//       );
+//       setToken(response.data.body.token);
 //       return response.data;
 //     } catch (error) {
-//       return isRejectedWithValue(400);
+//       if (error.response && error.response.data.message) {
+//         return rejectWithValue(error.response.data.message);
+//       } else {
+//         return rejectWithValue(error.message);
+//       }
 //     }
 //   }
 // );
 
-// import { createSlice } from "@reduxjs/toolkit";
+// export const getUserDetails = createAsyncThunk(
+//   "auth/getUserDetails",
+//   async (arg, { getState, rejectWithValue }) => {
+//     try {
+//       // const { user } = getState();
+//       const accessToken = getToken();
 
-// const selectUser = (state) => state.freelances;
-
-// const initialState = {
-//   status: "void",
-//   data: null,
-//   error: null,
-// };
-
-// export default function fetchOrUpdateUsers()
-
-// import axios from "axios";
-// const url = "http://localhost:3001/api/v1/";
-
-// export const userLogin = async (email, password) => {
-//   try {
-//     const response = await axios.post(url + "user/login", {
-//       email,
-//       password,
-//     });
-//     return response.data.body.token;
-//   } catch (error) {
-//     console.log(error);
+//       const config = {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       };
+//       const { response } = await axios.get(
+//         "http://localhost:3001/api/v1/user/profile",
+//         config
+//       );
+//       return { ...response.data.body, accessToken };
+//     } catch (error) {
+//       if (error.response && error.response.data.message) {
+//         return rejectWithValue(error.response.data.message);
+//       } else {
+//         return rejectWithValue(error.message);
+//       }
+//     }
 //   }
-// };
-
-// export const getUserProfile = async () => {
-//   const response = await axios.post(
-//     url + "user/profile",
-//     {},
-//     {
-//       headers: { Authorization: "Bearer" + localStorage.getItem("token") },
-//     }
-//   );
-//   return response.data.body;
-// };
-
-// export const updateUserProfile = async (firstName, lastName) => {
-//   const response = await axios.put(
-//     url + "user/profile",
-//     {
-//       firstName,
-//       lastName,
-//     },
-//     {
-//       headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-//     }
-//   );
-//   return response.data.body;
-// };
-
-// export const logout = () => {
-//   localStorage.removeItem("user/profile");
-// };
+// );

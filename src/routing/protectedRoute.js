@@ -1,20 +1,31 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
+import { removeToken } from "../slices/userSlice";
+import hydraLogo from "../assets/hydra.svg";
 
-const ProtectedRoute = () => {
-  const { userData } = useSelector((state) => state.auth);
+const ProtectedRoute = ({ token }) => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
 
-  if (!userData) {
-    return (
-      <div className="unauthorized">
-        <h1>Unauthorized 💸</h1>
-        <span>
-          <NavLink to="/login">Login</NavLink> to gain access
-        </span>
-      </div>
-    );
-  }
-  return <Outlet />;
+  return (
+    <>
+      {loading && <div>Loading...</div>}
+      {token ? (
+        <Outlet />
+      ) : (
+        <div className="unauthorized">
+          <h1>Nicht autorisiert !</h1>
+          <img src={hydraLogo} alt="Hail Hydra" className="hydraLogo"></img>
+          <span>
+            <NavLink to="/login" onClick={() => dispatch(removeToken())}>
+              Login
+            </NavLink>{" "}
+            to gain access
+          </span>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default ProtectedRoute;
