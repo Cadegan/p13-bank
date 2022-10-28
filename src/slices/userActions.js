@@ -57,3 +57,31 @@ export const getUserDetails = createAsyncThunk(
     }
   }
 );
+
+export const updateUserDetails = createAsyncThunk(
+  "auth/updateUserDetails",
+  async ({ firstName, lastName }, { rejectWithValue }) => {
+    try {
+      const accessToken = getToken();
+      const response = await axios({
+        method: "put",
+        url: "http://localhost:3001/api/v1/user/profile",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+        },
+      });
+      return { ...response.data };
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);

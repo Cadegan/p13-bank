@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserDetails, userLogin } from "./userActions";
+import { getUserDetails, userLogin, updateUserDetails } from "./userActions";
 
 // const token = localStorage.getItem("token")
 //   ? localStorage.getItem("token")
@@ -57,6 +57,16 @@ const userSlice = createSlice({
       state.loading = false;
       state.userData = {};
       state.token = null;
+    },
+    // Udate user details
+    [updateUserDetails.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateUserDetails.fulfilled]: (state, action) => {
+      const { body } = action.payload;
+      state.loading = false;
+      state.userData.firstName = body.firstName;
+      state.userData.lastName = body.lastName;
     },
   },
 });
