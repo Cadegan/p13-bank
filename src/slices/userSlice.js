@@ -9,7 +9,8 @@ const initialState = {
   token: null,
   loading: false,
   userData: null,
-  status: null,
+  success: null,
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -28,14 +29,14 @@ const userSlice = createSlice({
   },
   extraReducers: {
     // login user
-    [userLogin.pending]: (state, action) => {
+    [userLogin.pending]: (state) => {
       state.loading = true;
-      state.error = null;
     },
     [userLogin.fulfilled]: (state, action) => {
       const { body, status } = action.payload;
       state.loading = false;
       state.status = action.payload ? status : 400;
+      state.userData = body;
       state.token = body.token;
     },
     [userLogin.rejected]: (state, { payload }) => {
@@ -43,13 +44,12 @@ const userSlice = createSlice({
       state.error = payload;
     },
     //get user details
-    [getUserDetails.pending]: (state, action) => {
+    [getUserDetails.pending]: (state) => {
       state.loading = true;
     },
     [getUserDetails.fulfilled]: (state, action) => {
       const { accessToken, body } = action.payload;
       state.loading = false;
-      // state.userData = payload;
       state.userData = body;
       state.token = accessToken;
     },

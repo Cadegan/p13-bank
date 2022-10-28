@@ -9,8 +9,9 @@ const ProtectedRoute = ({ token }) => {
 
   return (
     <>
-      {loading && <div>Loading...</div>}
-      {token ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : token ? (
         <Outlet />
       ) : (
         <div className="unauthorized">

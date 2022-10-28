@@ -296,6 +296,7 @@ body {
   margin: 0.5rem 0;
 }
 
+/* Protected Route */
 .unauthorized {
   display: flex;
   flex: 1 0.4;
