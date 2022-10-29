@@ -75,7 +75,7 @@ export const updateUserDetails = createAsyncThunk(
           lastName: lastName,
         },
       });
-      return { ...response.data };
+      return { ...response.data, accessToken };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
