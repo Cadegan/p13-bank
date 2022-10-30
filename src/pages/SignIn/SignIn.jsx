@@ -11,6 +11,7 @@ export default function SignIn() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
+  // redirect authenticated user to profile screen
   useEffect(() => {
     if (userData) {
       navigate("/profile");
@@ -18,6 +19,8 @@ export default function SignIn() {
   }, [navigate, userData]);
   // console.log(userData);
 
+  // Compares email and password and checks if the user exists.
+  // If it is true a token is returned, otherwise an error message is displayed
   const submiForm = (data) => {
     dispatch(userLogin(data));
   };

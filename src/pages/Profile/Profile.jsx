@@ -7,13 +7,16 @@ import amountFormat from "../../utils/amountFormat";
 import { useForm } from "react-hook-form";
 
 export default function Profile() {
+  /* A mock data for the user. */
   const userBankAmount = data.user;
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const { register, handleSubmit } = useForm();
 
+  /* A hook that allows to extract userData (firstName and lastName) from the Redux store state */
   const userData = useSelector((state) => state.auth.userData);
 
+  // Check if the user's information has been edited and update it.
   const submiForm = (data) => {
     setIsEditing((isEditing) => !isEditing);
     if (isEditing) {

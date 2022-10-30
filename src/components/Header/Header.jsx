@@ -1,7 +1,7 @@
 // import React from "react";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { getUserDetails } from "../../slices/userActions";
+import { getUserDetails } from "../../slices/userActions";
 import { removeToken } from "../../slices/userSlice";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
@@ -10,11 +10,12 @@ export default function Header() {
   const { token, userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (token) {
-  //     dispatch(getUserDetails());
-  //   }
-  // }, [token, dispatch]);
+  // Update the display if token is found or not
+  useEffect(() => {
+    if (token) {
+      dispatch(getUserDetails());
+    }
+  }, [token, dispatch]);
 
   return (
     <nav className="main-nav">

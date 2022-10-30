@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getUserDetails, userLogin, updateUserDetails } from "./userActions";
 
-// const token = localStorage.getItem("token")
-//   ? localStorage.getItem("token")
-//   : sessionStorage.getItem("token");
-
 const initialState = {
   token: null,
   loading: false,
@@ -19,7 +15,6 @@ const userSlice = createSlice({
   reducers: {
     removeToken: (state) => {
       localStorage.removeItem("token"); // delete token from storage
-      // localStorage.clear();
       localStorage.setItem("rememberMe", false);
       state.loading = false;
       state.userData = null;

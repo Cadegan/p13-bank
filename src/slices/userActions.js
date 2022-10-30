@@ -25,6 +25,7 @@ export const userLogin = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      // return custom error message from API if any
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
       } else {
@@ -38,7 +39,10 @@ export const getUserDetails = createAsyncThunk(
   "auth/fetchUserData",
   async (arg, { rejectWithValue }) => {
     try {
+      // get user data from store
       const accessToken = getToken();
+
+      // configure authorization header with user's token
       const response = await axios({
         method: "post",
         url: "http://localhost:3001/api/v1/user/profile",
@@ -47,6 +51,7 @@ export const getUserDetails = createAsyncThunk(
           Authorization: `Bearer ${accessToken}`,
         },
       });
+
       return { ...response.data, accessToken };
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -63,6 +68,7 @@ export const updateUserDetails = createAsyncThunk(
   async ({ firstName, lastName }, { rejectWithValue }) => {
     try {
       const accessToken = getToken();
+
       const response = await axios({
         method: "put",
         url: "http://localhost:3001/api/v1/user/profile",
@@ -75,6 +81,7 @@ export const updateUserDetails = createAsyncThunk(
           lastName: lastName,
         },
       });
+
       return { ...response.data, accessToken };
     } catch (error) {
       if (error.response && error.response.data.message) {
