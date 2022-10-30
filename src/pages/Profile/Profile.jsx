@@ -26,33 +26,39 @@ export default function Profile() {
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          {isEditing ? (
+        {isEditing ? (
+          <h1>
+            Edition mode
+            <br />
             <form>
-              <div className="input-wrapper">
+              <div className="input-wrapper userInfo-input">
                 <input
                   type="text"
                   className="userForm-input"
+                  id="editFirstName-input"
                   {...register("firstName")}
                   defaultValue={userData.firstName}
                 />
                 <input
                   type="text"
-                  className="userForm-input"
+                  className="userForm-input "
+                  id="editLastName-input"
                   {...register("lastName")}
                   defaultValue={userData.lastName}
                 />
               </div>
             </form>
-          ) : (
+          </h1>
+        ) : (
+          <h1>
+            Welcome back
+            <br />
             <span className="header-info">
               <span id="firstName">{userData.firstName}</span>{" "}
               <span id="lastName">{userData.lastName}</span> !
             </span>
-          )}
-        </h1>
+          </h1>
+        )}
         <button
           className="edit-button"
           type="submit"
