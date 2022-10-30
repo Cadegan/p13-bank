@@ -1,36 +1,27 @@
 import data from "../../data.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, updateUserDetails } from "../../slices/userActions";
 import Account from "../../components/Account/account";
 import amountFormat from "../../utils/amountFormat";
+import { useForm } from "react-hook-form";
 
 export default function Profile() {
   const userBankAmount = data.user;
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   const userData = useSelector((state) => state.auth.userData);
 
-  useEffect(() => {
-    dispatch(getUserDetails);
-  }, [dispatch]);
-
-  function handleChange(e) {
-    e.preventDefault();
-
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-
+  const submiForm = (data) => {
     setIsEditing((isEditing) => !isEditing);
     if (isEditing) {
-      const identity = {
-        firstName: firstName,
-        lastName: lastName,
-      };
-      dispatch(updateUserDetails(identity));
+      dispatch(updateUserDetails(data));
+    } else {
+      dispatch(getUserDetails);
     }
-  }
+  };
 
   return (
     <main className="main bg-dark">
@@ -39,20 +30,22 @@ export default function Profile() {
           Welcome back
           <br />
           {isEditing ? (
-            <div className="userForm">
-              <input
-                className="userForm-input"
-                id="firstName"
-                type="text"
-                defaultValue={userData.firstName}
-              />
-              <input
-                className="userForm-input"
-                id="lastName"
-                type="text"
-                defaultValue={userData.lastName}
-              />
-            </div>
+            <form>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  className="userForm-input"
+                  {...register("firstName")}
+                  defaultValue={userData.firstName}
+                />
+                <input
+                  type="text"
+                  className="userForm-input"
+                  {...register("lastName")}
+                  defaultValue={userData.lastName}
+                />
+              </div>
+            </form>
           ) : (
             <span className="header-info">
               <span id="firstName">{userData.firstName}</span>{" "}
@@ -60,7 +53,11 @@ export default function Profile() {
             </span>
           )}
         </h1>
-        <button className="edit-button" onClick={handleChange}>
+        <button
+          className="edit-button"
+          type="submit"
+          onClick={handleSubmit(submiForm)}
+        >
           {isEditing ? "Update Name" : "Edit Name"}
         </button>
       </div>
