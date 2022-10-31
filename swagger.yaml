@@ -209,10 +209,14 @@ definitions:
     properties: 
       id:
         type: integer
+        description: account id
       name:
         type: string
+        description: account name
       amount:
         type: number
         format : float
+        description: account amount in $
       balance : 
         type : string
+        description: account balance status
