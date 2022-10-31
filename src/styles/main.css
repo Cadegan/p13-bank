@@ -305,6 +305,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+.errorMessage h1 {
+  color: crimson;
+  font-size: 4rem;
+  margin: 0px;
+}
 
 .ErrorMessage {
   color: #f23838;
@@ -324,4 +329,8 @@ body {
 }
 .unauthorized img {
   max-width: 400px;
+}
+.unauthorized h1 {
+  font-size: 4rem;
+  margin: 0;
 }/*# sourceMappingURL=main.css.map */

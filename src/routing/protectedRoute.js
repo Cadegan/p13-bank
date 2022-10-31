@@ -22,9 +22,8 @@ const ProtectedRoute = ({ token }) => {
           <img src={hydraLogo} alt="Hail Hydra" className="hydraLogo"></img>
           <span>
             <NavLink to="/login" onClick={() => dispatch(removeToken())}>
-              Login
-            </NavLink>{" "}
-            to gain access
+              Login to gain access
+            </NavLink>
           </span>
         </div>
       )}
