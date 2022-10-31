@@ -6,7 +6,7 @@ import { removeToken } from "../../slices/userSlice";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
-export default function Header() {
+export default function MainNav() {
   const { token, userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 

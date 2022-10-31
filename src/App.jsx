@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/header";
-import Footer from "./components/Footer/footer";
-import Home from "./pages/Home/home";
-import SignIn from "./pages/SignIn/signIn";
-import Dashboard from "./pages/Dashboard/dashboard";
-import ProtectedRoute from "./routing/protectedRoute";
-import Error from "./pages/Error/error";
+import MainNav from "./components/MainNav";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./routing";
+import Error from "./pages/Error";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <MainNav />
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/login" element={<SignIn />}></Route>

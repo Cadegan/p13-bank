@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../slices/userActions";
 import { useEffect } from "react";
-import ErrorMessage from "../../components/Error/loginError";
+import ErrorMessage from "../../components/Error";
 
 export default function SignIn() {
   const { loading, userData, error } = useSelector((state) => state.auth);
