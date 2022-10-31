@@ -1,10 +1,10 @@
-import DashboardWelcome from "./dashboard.welcome";
+import DashboardHeader from "./dashboard.header";
 import DashboardAccounts from "./dashboard.accounts";
 
 export default function Dashboard() {
   return (
     <main className="main bg-dark">
-      <DashboardWelcome />
+      <DashboardHeader />
       <DashboardAccounts />
     </main>
   );
