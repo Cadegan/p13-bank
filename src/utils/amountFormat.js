@@ -4,6 +4,6 @@
  * @param  { number } value - Number received in argument to be formatted
  * @return a formatted number
  */
-const amountFormat = (value) => new Intl.NumberFormat("en-IN").format(value);
+const AmountFormat = (value) => new Intl.NumberFormat("en-IN").format(value);
 
-export default amountFormat;
+export default AmountFormat;

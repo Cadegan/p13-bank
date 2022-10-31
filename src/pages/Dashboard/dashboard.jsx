@@ -1,14 +1,14 @@
-import data from "../../data.json";
+import accountsData from "../../accountsData.json";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, updateUserDetails } from "../../slices/userActions";
 import Account from "../../components/Account/account";
-import amountFormat from "../../utils/amountFormat";
+import AmountFormat from "../../utils/amountFormat";
 import { useForm } from "react-hook-form";
 
 export default function Dashboard() {
   /* A mock data for the user. */
-  const userBankAmount = data.user;
+  const amountsBank = accountsData.user;
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const { register, handleSubmit } = useForm();
@@ -71,13 +71,13 @@ export default function Dashboard() {
         </button>
       </div>
       <h2 className="sr-only">Accounts</h2>
-      {userBankAmount &&
-        userBankAmount.accounts.map(({ id, title, amount, description }) => (
+      {amountsBank &&
+        amountsBank.accounts.map(({ id, title, amount, description }) => (
           <Account
             id={id}
             key={id}
             title={title}
-            amount={amountFormat(amount)}
+            amount={AmountFormat(amount)}
             description={description}
           ></Account>
         ))}
