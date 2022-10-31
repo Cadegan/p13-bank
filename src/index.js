@@ -4,7 +4,7 @@ import "./styles/main.css";
 import App from "./App";
 import store from "./app/store";
 import { Provider } from "react-redux";
-import { getToken } from "./utils/functions";
+import { getToken } from "./utils/tokenFunctions";
 import { getUserDetails } from "./slices/userActions";
 import reportWebVitals from "./reportWebVitals";
 

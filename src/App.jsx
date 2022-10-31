@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
-import Profile from "./pages/Profile/Profile";
+import Dashboard from "./pages/Dashboard/dashboard";
 import ProtectedRoute from "./routing/protectedRoute";
 import Error from "./pages/Error/error";
 import { useSelector } from "react-redux";
@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/login" element={<SignIn />}></Route>
         <Route element={<ProtectedRoute token={token} />}>
-          <Route exact path="/profile" element={<Profile />}></Route>
+          <Route exact path="/dashboard" element={<Dashboard />}></Route>
         </Route>
         <Route exact path="*" element={<Error />}></Route>
       </Routes>

@@ -6,7 +6,7 @@ import Account from "../../components/Account/account";
 import amountFormat from "../../utils/amountFormat";
 import { useForm } from "react-hook-form";
 
-export default function Profile() {
+export default function Dashboard() {
   /* A mock data for the user. */
   const userBankAmount = data.user;
   const dispatch = useDispatch();

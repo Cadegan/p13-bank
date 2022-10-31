@@ -30,7 +30,7 @@ export default function Header() {
       <div>
         {token ? (
           <>
-            <NavLink className="main-nav-item" to="/profile">
+            <NavLink className="main-nav-item" to="/dashboard">
               <i className="fa fa-user-circle"></i>
               {userData.firstName}
             </NavLink>

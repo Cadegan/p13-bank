@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getToken, setToken } from "../utils/functions";
+import { getToken, setToken } from "../utils/tokenFunctions";
 
 // v4
 export const userLogin = createAsyncThunk(

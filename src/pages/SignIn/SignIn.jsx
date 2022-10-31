@@ -11,10 +11,10 @@ export default function SignIn() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-  // redirect authenticated user to profile screen
+  // redirect authenticated user to Dashboard screen
   useEffect(() => {
     if (userData) {
-      navigate("/profile");
+      navigate("/dashboard");
     }
   }, [navigate, userData]);
   // console.log(userData);
