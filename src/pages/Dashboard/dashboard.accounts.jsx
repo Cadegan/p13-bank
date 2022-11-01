@@ -3,7 +3,7 @@ import Account from "../../components/Account";
 import AmountFormat from "../../utils/amountFormat";
 
 export default function DashboardAccounts() {
-  /* A mock data for the user */
+  /* A mock data for the amounts */
   const amountsBank = accountsData.user;
 
   return (

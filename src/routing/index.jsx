@@ -12,10 +12,10 @@ const ProtectedRoute = ({ token }) => {
   // dashboard if token is found or unauthorized screen if is not
   return (
     <>
-      {loading ? (
-        <div>Loading...</div>
-      ) : token ? (
+      {token ? (
         <Outlet />
+      ) : loading ? (
+        <div>Loading...</div>
       ) : (
         <div className="unauthorized">
           <h1>Nicht autorisiert !</h1>

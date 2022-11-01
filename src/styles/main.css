@@ -298,6 +298,10 @@ body {
   margin-right: 1rem;
 }
 
+.spinner {
+  justify-content: center;
+}
+
 /* Error page */
 .errorMessage {
   display: flex;

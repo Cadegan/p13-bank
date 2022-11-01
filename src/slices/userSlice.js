@@ -55,7 +55,7 @@ const userSlice = createSlice({
     },
     // Udate user details
     [updateUserDetails.pending]: (state) => {
-      state.loading = false;
+      state.loading = true;
     },
     [updateUserDetails.fulfilled]: (state, action) => {
       const { body } = action.payload;

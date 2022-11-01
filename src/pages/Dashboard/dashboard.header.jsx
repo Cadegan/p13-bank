@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, updateUserDetails } from "../../slices/userActions";
+import { Oval } from "react-loader-spinner";
 
 import { useForm } from "react-hook-form";
 
@@ -11,6 +12,8 @@ export default function DashboardHeader() {
 
   /* A hook that allows to extract userData (firstName and lastName) from the Redux store state */
   const userData = useSelector((state) => state.auth.userData);
+
+  const { loading } = useSelector((state) => state.auth);
 
   // Check if the user's information has been edited and update it.
   const submiForm = (data) => {
@@ -52,10 +55,25 @@ export default function DashboardHeader() {
         <h1>
           Welcome back
           <br />
-          <span className="header-info">
-            <span id="firstName">{userData.firstName}</span>{" "}
-            <span id="lastName">{userData.lastName}</span> !
-          </span>
+          {loading ? (
+            <Oval
+              height={38}
+              width={38}
+              color="#00bc77"
+              wrapperStyle={{}}
+              wrapperClass="spinner"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#00bc77"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          ) : (
+            <span className="header-info">
+              <span id="firstName">{userData.firstName}</span>{" "}
+              <span id="lastName">{userData.lastName}</span> !
+            </span>
+          )}
         </h1>
       )}
       <button
