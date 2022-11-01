@@ -114,7 +114,7 @@ paths:
           description: Internal Server Error
 
 # Accounts
-  /user/accounts:
+  /user/{userId}/accounts:
     get:
       security:
         - Bearer: []
@@ -127,6 +127,17 @@ paths:
           type: string
           name: Authorization
           description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: userId
+          type: string
+          description: Numeric ID of the user to get
+          required: true
+        - in: query
+          name: date
+          type: string
+          format: date
+          description: Date when the transaction has been updated
           required: true
       produces:
         - application/json
@@ -144,12 +155,61 @@ paths:
                   accounts:
                     type: array
                     items:
-                      $ref: '#/definitions/Account'
+                      $ref: '#/definitions/Accounts'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
 
+  /user/{userId}/transaction:  
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Accounts
+      summary: Create Transaction API
+      description: API for creating a new transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: userId
+          type: string
+          description: Numeric ID of the user to get
+          required: true
+        - in: path
+          name: body
+          type: string
+          description: Create a transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of accounts retrieved successully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              body:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/definitions/Accounts'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+# Models
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -204,7 +264,7 @@ definitions:
         type: string
       lastName:
         type: string
-  Account:
+  Accounts:
     type: object
     properties: 
       id:
@@ -213,6 +273,10 @@ definitions:
       name:
         type: string
         description: account name
+      date:
+        type: string
+        format: date-type
+        description: transaction's date
       amount:
         type: number
         format : float
@@ -220,3 +284,17 @@ definitions:
       balance : 
         type : string
         description: account balance status
+  TransactionDetails:
+    type: object
+    properties:
+      id:
+        type: string
+      date:
+        type: string
+        format: date-type
+        description: transaction's date
+      amount:
+        type: number
+        description: amount in $
+      category:
+        type: string
