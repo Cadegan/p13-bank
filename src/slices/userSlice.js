@@ -59,6 +59,7 @@ const userSlice = createSlice({
     },
     [updateUserDetails.fulfilled]: (state, action) => {
       const { body } = action.payload;
+      // console.log(action.payload.body);
       state.loading = false;
       state.userData.firstName = body.firstName;
       state.userData.lastName = body.lastName;

@@ -114,7 +114,7 @@ paths:
           description: Internal Server Error
 
 # Accounts
-  /user/{userId}/accounts:
+  /user/{userId}/transactions:
     get:
       security:
         - Bearer: []
@@ -134,10 +134,10 @@ paths:
           description: Numeric ID of the user to get
           required: true
         - in: query
-          name: date
           type: string
+          name: date
           format: date
-          description: Date when the transaction has been updated
+          description: Date when the transaction has been created
           required: true
       produces:
         - application/json
@@ -145,23 +145,13 @@ paths:
         '200':
           description: List of accounts retrieved successully
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-              body:
-                type: object
-                properties:
-                  accounts:
-                    type: array
-                    items:
-                      $ref: '#/definitions/Accounts'
+            $ref: '#/definitions/Accounts'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
 
-  /user/{userId}/transaction:  
+#Create new transaction
     post:
       security:
         - Bearer: []
@@ -180,9 +170,8 @@ paths:
           type: string
           description: Numeric ID of the user to get
           required: true
-        - in: path
+        - in: body
           name: body
-          type: string
           description: Create a transaction
           required: true
           schema:
@@ -191,23 +180,14 @@ paths:
         - application/json
       responses:
         '200':
-          description: List of accounts retrieved successully
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-              body:
-                type: object
-                properties:
-                  accounts:
-                    type: array
-                    items:
-                      $ref: '#/definitions/Accounts'
+          description: The transaction was successfully created
+          # schema:
+          #   $ref:
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
+    
 
 # Models
 securityDefinitions:
@@ -267,23 +247,34 @@ definitions:
   Accounts:
     type: object
     properties: 
-      id:
+      status:
         type: integer
-        description: account id
-      name:
+      message:
         type: string
-        description: account name
-      date:
-        type: string
-        format: date-type
-        description: transaction's date
-      amount:
-        type: number
-        format : float
-        description: account amount in $
-      balance : 
-        type : string
-        description: account balance status
+      body:
+        type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: transaction's id
+                date:
+                  type: string
+                  format: date-type
+                  description: transaction's date
+                description:
+                  type: string
+                  description: transaction's description
+                amount:
+                  type: number
+                  format : float
+                  description: transaction's amount in $
+                balance : 
+                  type : string
+                  description: account balance status
   TransactionDetails:
     type: object
     properties:
@@ -293,8 +284,12 @@ definitions:
         type: string
         format: date-type
         description: transaction's date
+      description:
+        type: string
+        description: transaction's name
       amount:
         type: number
         description: amount in $
-      category:
-        type: string
+      balance : 
+        type : string
+        description: account balance status
