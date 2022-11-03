@@ -8,8 +8,8 @@ const ProtectedRoute = ({ token }) => {
   /* Destructuring the loading property from the state.auth object. */
   const { loading } = useSelector((state) => state.auth);
 
-  // Show Loading screen if state is loading,
-  // dashboard if token is found or unauthorized screen if is not
+  /* Show Loading screen if state is loading,
+  dashboard if token is found or unauthorized screen if is not */
   return (
     <>
       {token ? (

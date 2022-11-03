@@ -23,7 +23,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    // login user
+    /* login user */
     [userLogin.pending]: (state) => {
       state.loading = true;
     },
@@ -38,7 +38,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = payload;
     },
-    //get user details
+    /* get user details */
     [getUserDetails.pending]: (state) => {
       state.loading = true;
     },
@@ -53,7 +53,7 @@ const userSlice = createSlice({
       state.userData = {};
       state.token = null;
     },
-    // Udate user details
+    /* Udate user details */
     [updateUserDetails.pending]: (state) => {
       state.loading = true;
     },

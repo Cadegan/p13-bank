@@ -1,21 +1,11 @@
-// import React from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "../../slices/userActions";
 import { removeToken } from "../../slices/userSlice";
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 
 export default function MainNav() {
-  const { token, userData } = useSelector((state) => state.auth);
+  const { userData } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-  // Update the display if token is found or not
-  useEffect(() => {
-    if (token) {
-      dispatch(getUserDetails());
-    }
-  }, [token, dispatch]);
 
   return (
     <nav className="main-nav">
@@ -28,9 +18,9 @@ export default function MainNav() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        {token ? (
+        {userData ? (
           <>
-            <NavLink className="main-nav-item" to="/dashboard">
+            <NavLink className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>
               {userData.firstName}
             </NavLink>

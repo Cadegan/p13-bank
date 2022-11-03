@@ -8,6 +8,10 @@ import { getToken } from "./utils/tokenFunctions";
 import { getUserDetails } from "./slices/userActions";
 import reportWebVitals from "./reportWebVitals";
 
+/* This is checking if the user has a token in local storage. If they do, it will dispatch the
+getUserDetails action and update the display. 
+This checking allows to keep the loggin active in case of reload of the page. 
+*/
 if (getToken()) {
   store.dispatch(getUserDetails());
 }

@@ -2,12 +2,11 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getToken, setToken } from "../utils/tokenFunctions";
 
-// v4
 export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      // configure header's Content-Type as JSON
+      /* configure header's Content-Type as JSON */
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -20,12 +19,12 @@ export const userLogin = createAsyncThunk(
         config
       );
 
-      // store user's token in local storage
+      /* store user's token in local storage */
       setToken(response.data.body.token);
 
       return response.data;
     } catch (error) {
-      // return custom error message from API if any
+      /* return custom error message from API if any */
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
       } else {
@@ -39,10 +38,10 @@ export const getUserDetails = createAsyncThunk(
   "auth/fetchUserData",
   async (arg, { rejectWithValue }) => {
     try {
-      // get user data from store
+      /* get user data from store */
       const accessToken = getToken();
 
-      // configure authorization header with user's token
+      /* configure authorization header with user's token */
       const response = await axios({
         method: "post",
         url: "http://localhost:3001/api/v1/user/profile",

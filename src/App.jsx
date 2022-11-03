@@ -7,10 +7,22 @@ import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./routing";
 import Error from "./pages/Error";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { useEffect } from "react";
+import { getUserDetails } from "../src/slices/userActions";
 
 function App() {
-  const token = useSelector((state) => state.auth.token);
+  /* Destructuring the token from the state.auth object. */
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  /* Update the display if token is found or not */
+  useEffect(() => {
+    if (token) {
+      dispatch(getUserDetails());
+    }
+  }, [token, dispatch]);
 
   return (
     <Router>
@@ -19,7 +31,7 @@ function App() {
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/login" element={<SignIn />}></Route>
         <Route element={<ProtectedRoute token={token} />}>
-          <Route exact path="/dashboard" element={<Dashboard />}></Route>
+          <Route exact path="/profile" element={<Dashboard />}></Route>
         </Route>
         <Route exact path="*" element={<Error />}></Route>
       </Routes>
