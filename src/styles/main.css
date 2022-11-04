@@ -259,20 +259,25 @@ body {
   text-align: left;
   margin-bottom: 1rem;
 }
-
-.input-wrapper label {
-  font-weight: bold;
-}
-
 .input-wrapper input {
   padding: 5px;
   font-size: 1.2rem;
+}
+.input-wrapper label {
+  font-weight: bold;
 }
 
 /* Profil page */
 .header {
   color: #fff;
   margin-bottom: 2rem;
+  height: 150px;
+}
+.header h1 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
 }
 
 .edit-button {
@@ -283,23 +288,38 @@ body {
   padding: 10px;
 }
 
-.userInfo-input {
-  display: inline;
+.userInfo-wrapper {
+  display: flex;
+  justify-content: center;
 }
-
-#editFirstName-input,
-#editLastName-input {
+.userInfo-wrapper input {
+  padding: 5px;
+  margin: 5px;
+  width: 15vw;
+  font-size: 1.2rem;
   font-weight: bold;
-  width: 20%;
-  margin: 0 auto;
 }
 
-#editFirstName-input {
-  margin-right: 1rem;
+.bt-group {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-button {
+  padding: 5px;
+  margin: 5px;
+  width: 150px;
+  font-size: 1.2rem;
 }
 
 .spinner {
   justify-content: center;
+}
+
+.text-error {
+  font-size: 0.65rem;
+  color: red;
+  margin: 0px;
 }
 
 /* Error page */
