@@ -60,13 +60,16 @@ export default function DashboardHeader() {
           </form>
           <div className="bt-group">
             <button
-              className="edit-button"
+              className="edit-button secondary-boutton"
               type="submit"
               onClick={handleSubmit(submiForm)}
             >
               Save
             </button>
-            <button className="edit-button" onClick={() => setIsEditing(false)}>
+            <button
+              className="edit-button secondary-boutton"
+              onClick={() => setIsEditing(false)}
+            >
               Cancel
             </button>
           </div>
