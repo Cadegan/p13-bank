@@ -214,7 +214,7 @@ paths:
           description: Internal Server Error
 
  #Update a transaction
-  /user/accounts/{accountId}/transactions/{id}:
+  /user/accounts/{accountId}/transactions/{transactionId}:
     patch:
       security:
         - Bearer: []
@@ -231,12 +231,12 @@ paths:
         - in: path
           name: accountId
           type: number
-          description: Numeric ID of the user to get
+          description: Numeric ID of the account to get
           required: true
         - in: path
           name: transactionId
           type: number
-          description: Numeric ID of the user to get
+          description: Numeric ID of the transaction to get
           required: true
         - in: body
           name: body
@@ -324,7 +324,7 @@ definitions:
             type: array
             items:
               properties:
-                id:
+                accountId:
                   type: integer
                   description: Account id
                 description:
@@ -348,12 +348,16 @@ definitions:
       body:
         type: object
         properties:
+          accountId:
+            type: integer
+            description: Account id associated with the transactions
           transactions:
             type: array
             items:
               properties:
-                id:
+                transactionId:
                   type: integer
+                  description: Transaction id
                 date:
                   type: string
                   format: date-type
