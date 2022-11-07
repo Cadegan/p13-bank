@@ -114,13 +114,13 @@ paths:
           description: Internal Server Error
 
 # Accounts
-  /user/transactions:
+  /user/accounts:
     get:
       security:
         - Bearer: []
       tags:
         - User Accounts
-      summary: User Acounts API
+      summary: List of user Acounts API
       description: API for fetching list of accounts
       parameters:
         - in: header
@@ -128,11 +128,37 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        # - in: path
-        #   name: userId
-        #   type: string
-        #   description: Numeric ID of the user to get
-        #   required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of accounts retrieved successully
+          schema:
+            $ref: '#/definitions/GetAccountList'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+  /user/accounts/{accountsId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Accounts
+      summary: List of account transactions API
+      description: API for fetching list of account transactions 
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: Numeric ID of the account to get
+          required: true
         # - in: query
         #   type: string
         #   name: date
@@ -145,7 +171,7 @@ paths:
         '200':
           description: List of accounts retrieved successully
           schema:
-            $ref: '#/definitions/getAccounts'
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -165,11 +191,11 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: path
-          name: userId
-          type: string
-          description: Numeric ID of the user to get
-          required: true
+        # - in: path
+        #   name: userId
+        #   type: string
+        #   description: Numeric ID of the user to get
+        #   required: true
         - in: body
           name: body
           description: Create a transaction
@@ -181,33 +207,48 @@ paths:
       responses:
         '200':
           description: The transaction was successfully created
-          # schema:
-          #   $ref:
+          schema:
+            $ref: '#/definitions/TransactionResponse'
         '400':
           description: Invalid Fields
         '500':
           description: Internal Server Error
 
  #Update a transaction
-  /user/transactions/{transactionId}:
-    put:
+  /user/accounts/{accountsId}/transactions/{id}:
+    patch:
       security:
         - Bearer: []
       tags:
         - User Accounts
       summary: Update Transaction API
       description: API for updating a transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          type: number
+          description: Numeric ID of the user to get
+          required: true
+        - in: body
+          name: body
+          description: Update a transaction
+          required: true
+          schema:
+            $ref: "#/definitions/PatchTransaction"
       responses:
           '200':
             description: The transaction was successfully updated
-            # schema:
-            #   $ref:
+            schema:
+              $ref: '#/definitions/TransactionResponse'
           '400':
             description: Invalid Fields
           '500':
             description: Internal Server Error
-      
-    
 
 # Models
 securityDefinitions:
@@ -264,7 +305,8 @@ definitions:
         type: string
       lastName:
         type: string
-  getAccounts:
+
+  GetAccountList:
     type: object
     properties: 
       status:
@@ -280,11 +322,35 @@ definitions:
               properties:
                 id:
                   type: integer
-                  description: transaction's id
-                date:
+                  description: Account's id
+                description:
                   type: string
-                  format: date-type
-                  description: transaction's date
+                  description: Account's description
+                amount:
+                  type: number
+                  format : float
+                  description: Account's amount in $
+                balance : 
+                  type : string
+                  description: Account balance status
+  
+  GetTransactionList:
+    type: object
+    properties: 
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          body:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: transaction's id
                 description:
                   type: string
                   description: transaction's description
@@ -295,6 +361,7 @@ definitions:
                 balance : 
                   type : string
                   description: account balance status
+  
   TransactionDetails:
     type: object
     properties:
@@ -312,5 +379,63 @@ definitions:
         format : float
         description: amount in $
       balance : 
-        type : string
+        type: number
+        format : float
         description: account balance status
+      type :
+        type: string
+        description: Transaction type
+      category:
+        type: string
+        description: Transaction category
+      notes:
+        type: string
+        description: Transaction category
+  
+  TransactionResponse:
+    type: object
+    properties: 
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transaction:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                date:
+                  type: string
+                  format: date-type
+                  description: transaction's date
+                description:
+                  type: string
+                  description: transaction's name
+                amount:
+                  type: number
+                  format : float
+                  description: amount in $
+                balance : 
+                  type: number
+                  format : float
+                  description: account balance status
+                type :
+                  type: string
+                  description: Transaction type
+                category:
+                  type: string
+                  description: Transaction category
+                notes:
+                  type: string
+                  description: Transaction category    
+  PatchTransaction:
+    type: object
+    properties:
+      category :
+        type : string
+      notes : 
+        type : string
