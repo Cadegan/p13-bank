@@ -112,12 +112,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-# 
-# 
-# 
-# 
-# 
-# 
+
 # Accounts
   /user/accounts:
     get:
@@ -254,6 +249,157 @@ paths:
           '500':
             description: Internal Server Error
 
+  # 
+  # 
+  # V2
+  /user/accounts/transactions?accountId={accountId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Accounts v2
+      summary: List of account transactions API
+      description: API for fetching list of account transactions 
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: Numeric ID of the account to get
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: List of transactions retrieved successully
+          schema:
+            $ref: '#/definitions/GetTransactionV2'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    
+  # #Create new transaction
+  # /user/accounts/transactions?accountId={accountId}&transactionId={transactionId}:
+  #   post:
+  #     security:
+  #       - Bearer: []
+  #     tags:
+  #       - User Accounts v2
+  #     summary: Create Transaction API
+  #     description: API for creating a new transaction
+  #     parameters:
+  #       - in: header
+  #         type: string
+  #         name: Authorization
+  #         description: Attach Bearer JWT token
+  #         required: true
+  #       - in: path
+  #         name: accountId
+  #         type: string
+  #         description: Numeric ID of the account to get
+  #         required: true
+  #       - in: body
+  #         name: body
+  #         description: Create a new transaction
+  #         required: true
+  #         schema:
+  #           $ref: "#/definitions/PostTransaction"
+  #     produces:
+  #       - application/json
+  #     responses:
+  #       '200':
+  #         description: The transaction was successfully created
+  #         schema:
+  #           $ref: '#/definitions/GetTransaction'
+  #       '400':
+  #         description: Invalid Fields
+  #       '500':
+  #         description: Internal Server Error
+
+#Create new transaction
+  /user/accounts/{accountId}/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Accounts v2
+      summary: Create Transaction API
+      description: API for creating a new transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: string
+          description: Numeric ID of the account to get
+          required: true
+        - in: body
+          name: body
+          description: Create a new transaction
+          required: true
+          schema:
+            $ref: "#/definitions/PostTransactionV2"
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: The transaction was successfully created
+          schema:
+            $ref: '#/definitions/GetTransactionV2'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+#  Update a transaction
+  /user/accounts/{accountId}/transaction/{transactionId}:
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - User Accounts v2
+      summary: Update Transaction API
+      description: API for updating a transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          type: number
+          description: Numeric ID of the account to get
+          required: true
+        - in: path
+          name: transactionId
+          type: number
+          description: Numeric ID of the transaction to get
+          required: true
+        - in: body
+          name: body
+          description: Update a transaction
+          required: true
+          schema:
+            $ref: "#/definitions/PatchTransaction"
+      responses:
+          '200':
+            description: The transaction was successfully updated
+            schema:
+              $ref: '#/definitions/GetTransactionV2'
+          '400':
+            description: Invalid Fields
+          '500':
+            description: Internal Server Error
+
 # Models
 securityDefinitions:
   Bearer:
@@ -382,12 +528,92 @@ definitions:
                 notes:
                   type: string
                   description: Transaction category
+
+# V2
+  GetTransactionV2:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          transactions:
+            type: array
+            items:
+              properties:
+                accountId:
+                  type: integer
+                  description: Account id associated with the transactions
+                transactionId:
+                  type: integer
+                  description: Transaction id
+                date:
+                  type: string
+                  format: date-type
+                  description: Transaction date
+                description:
+                  type: string
+                  description: Transaction name
+                amount:
+                  type: number
+                  format : float
+                  description: Amount in $
+                balance : 
+                  type: number
+                  format : float
+                  description: account balance status
+                type :
+                  type: string
+                  description: Transaction type
+                category:
+                  type: string
+                  description: Transaction category
+                notes:
+                  type: string
+                  description: Transaction category
   
   
   PostTransaction:
     type: object
     properties:
-      id:
+      transactionId:
+        type: integer
+      date:
+        type: string
+        format: date-type
+        description: Transaction date
+      description:
+        type: string
+        description: Transaction name
+      amount:
+        type: number
+        format : float
+        description: Amount in $
+      balance : 
+        type: number
+        format : float
+        description: account balance status
+      type :
+        type: string
+        description: Transaction type
+      category:
+        type: string
+        description: Transaction category
+      notes:
+        type: string
+        description: Transaction category
+
+  # V2
+  PostTransactionV2:
+    type: object
+    properties:
+      accountId:
+        type: integer
+        description: Account id associated with the transactions
+      transactionId:
         type: integer
       date:
         type: string
