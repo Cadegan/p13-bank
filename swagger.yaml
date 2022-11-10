@@ -158,16 +158,16 @@ paths:
           required: true
         - in: path
           name: accountID
-          type: string
+          type: integer
           description: Numeric ID of the account to get
           required: true
         - in: query
           type: string
-          name: Month
+          name: month
           description: Month of the transaction
         - in: query
           type: string
-          name: Year
+          name: year
           description: Year of the transaction
       produces:
         - application/json
@@ -183,7 +183,6 @@ paths:
         '500':
           description: Internal Server Error
 
- #Update a transaction
   /user/accounts/{accountID}/transactions/{transactionID}:
     get:
       security:
@@ -191,7 +190,7 @@ paths:
       tags:
         - User Accounts
       summary: Get one transaction
-      description: API to get a transaction
+      description: API to get the details of a transaction
       parameters:
         - in: header
           type: string
@@ -200,12 +199,12 @@ paths:
           required: true
         - in: path
           name: accountID
-          type: number
+          type: integer
           description: Numeric ID of the account to get
           required: true
         - in: path
           name: transactionID
-          type: number
+          type: integer
           description: Numeric ID of the transaction to get
           required: true
       responses:
@@ -220,47 +219,49 @@ paths:
           '500':
             description: Internal Server Error
 
-    # Create new transaction
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Accounts
-      summary: Create Transaction API
-      description: API for creating a new transaction
-      parameters:
-        - in: header
-          type: string
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: path
-          name: accountID
-          type: string
-          description: Numeric ID of the account to get
-          required: true
-        - in: path
-          name: transactionID
-          type: string
-          description: Numeric ID of the transaction to get
-          required: true
-        - in: body
-          name: body
-          description: Create a new transaction
-          required: true
-          schema:
-            $ref: "#/definitions/PostTransaction"
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: The transaction was successfully created
-          schema:
-            $ref: '#/definitions/GetTransactionResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+    # # Create new transaction
+    # post:
+    #   security:
+    #     - Bearer: []
+    #   tags:
+    #     - User Accounts
+    #   summary: Create Transaction API
+    #   description: API for creating a new transaction
+    #   parameters:
+    #     - in: header
+    #       type: string
+    #       name: Authorization
+    #       description: Attach Bearer JWT token
+    #       required: true
+    #     - in: path
+    #       name: accountID
+    #       type: string
+    #       description: Numeric ID of the account to get
+    #       required: true
+    #     - in: path
+    #       name: transactionID
+    #       type: string
+    #       description: Numeric ID of the transaction to get
+    #       required: true
+    #     - in: body
+    #       name: body
+    #       description: Create a new transaction
+    #       required: true
+    #       schema:
+    #         $ref: "#/definitions/PostTransaction"
+    #   produces:
+    #     - application/json
+    #   responses:
+    #     '200':
+    #       description: The transaction was successfully created
+    #       schema:
+    #         $ref: '#/definitions/GetTransactionResponse'
+    #     '401':
+    #       description: Unauthorized user access
+    #     '400':
+    #       description: Invalid Fields
+    #     '500':
+    #       description: Internal Server Error
 
     patch:
       security:
@@ -277,12 +278,12 @@ paths:
           required: true
         - in: path
           name: accountID
-          type: number
+          type: integer
           description: Numeric ID of the account to get
           required: true
         - in: path
           name: transactionID
-          type: number
+          type: integer
           description: Numeric ID of the transaction to get
           required: true
         - in: body
@@ -316,25 +317,17 @@ paths:
           required: true
         - in: path
           name: accountID
-          type: number
+          type: integer
           description: Numeric ID of the account to get
           required: true
         - in: path
           name: transactionID
-          type: number
+          type: integer
           description: Numeric ID of the transaction to get
           required: true
-        # - in: body
-        #   name: body
-        #   description: Update a transaction
-        #   required: true
-        #   schema:
-        #     $ref: "#/definitions/PatchTransaction"
       responses:
           '204':
-            description: The transaction was successfully deleted
-            # schema:
-            #   $ref: '#/definitions/GetTransactionResponse'
+            description: The transaction information has been successfully deleted
           '400':
             description: Invalid Fields
           '401':
@@ -513,38 +506,38 @@ definitions:
             type: string
             description: Transaction category
   
-  PostTransaction:
-    type: object
-    properties:
-      accountID:
-        type: integer
-        description: Account id associated with the transactions
-      transactionID:
-        type: integer
-      date:
-        type: string
-        format: date-type
-        description: Transaction date
-      description:
-        type: string
-        description: Transaction name
-      amount:
-        type: number
-        format : float
-        description: Amount in $
-      balance : 
-        type: number
-        format : float
-        description: account balance status
-      type :
-        type: string
-        description: Transaction type
-      category:
-        type: string
-        description: Transaction category
-      notes:
-        type: string
-        description: Transaction category
+  # PostTransaction:
+  #   type: object
+  #   properties:
+  #     accountID:
+  #       type: integer
+  #       description: Account id associated with the transactions
+  #     transactionID:
+  #       type: integer
+  #     date:
+  #       type: string
+  #       format: date-type
+  #       description: Transaction date
+  #     description:
+  #       type: string
+  #       description: Transaction name
+  #     amount:
+  #       type: number
+  #       format : float
+  #       description: Amount in $
+  #     balance : 
+  #       type: number
+  #       format : float
+  #       description: account balance status
+  #     type :
+  #       type: string
+  #       description: Transaction type
+  #     category:
+  #       type: string
+  #       description: Transaction category
+  #     notes:
+  #       type: string
+  #       description: Transaction category
        
   PatchTransaction:
     type: object
