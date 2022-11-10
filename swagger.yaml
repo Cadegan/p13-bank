@@ -163,12 +163,12 @@ paths:
           required: true
         - in: query
           type: string
-          name: month
-          description: Month of the transaction
-        - in: query
-          type: string
           name: year
           description: Year of the transaction
+        - in: query
+          type: string
+          name: month
+          description: Month of the transaction
       produces:
         - application/json
       responses:
