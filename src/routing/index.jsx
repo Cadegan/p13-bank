@@ -13,7 +13,7 @@ const ProtectedRoute = ({ token }) => {
   return (
     <>
       {token ? (
-        <Outlet />
+        <Outlet /> /* It is used to render the component that matches the current route (Profile/Dashbord) */
       ) : loading ? (
         <div>Loading...</div>
       ) : (

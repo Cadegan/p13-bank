@@ -55,7 +55,6 @@ export default function SignIn() {
               {...register("password")}
               required
             />
-            Password: `password123` or `password456`
           </div>
           <div className="input-remember">
             <input
